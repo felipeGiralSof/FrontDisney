@@ -21,8 +21,8 @@ const AddPeliculas = () => {
                     type="text"
                     variant="filled"
                     fullWidth
-                    placeholder="Ingresa tu Nombre"
-                    label="Nombre"
+                    placeholder="Ingresa tu Imagen"
+                    label="Imagen"
                     sx={{ border: '1px', mb: 1 }}
                 />
 
@@ -30,8 +30,8 @@ const AddPeliculas = () => {
                     type="text"
                     variant="filled"
                     fullWidth
-                    placeholder="Ingresa tu Edad"
-                    label="Edad"
+                    placeholder="Ingresa El Titulo"
+                    label="Titulo"
                     sx={{ border: '1px', mb: 1 }}
                 />
 
@@ -39,18 +39,27 @@ const AddPeliculas = () => {
                     type="text"
                     variant="filled"
                     fullWidth
-                    placeholder="Ingresa tu Peso"
-                    label="Peso"
+                    placeholder="Ingresa la Fecha de Creacion"
+                    label="Fecha de Creacion"
                     sx={{ border: '1px', mb: 1 }}
                 />
 
                 <TextField 
-                    type="text"
+                    type="number"
                     variant="filled"
                     fullWidth
-                    multiline
-                    placeholder="¿Ingresa tu Historia?"
-                    minRows={ 5 }
+                    placeholder="la calificacion de 1 a 5"
+                    label="Calificacion"
+                    sx={{ border: '1px', mb: 1 }}
+                />
+
+                <TextField 
+                    type="number"
+                    variant="filled"
+                    fullWidth
+                    placeholder="Ingresa los Personajes Asociados"
+                    label="Personajes Asociados"
+                    sx={{ border: '1px', mb: 1 }}
                 />
             </Grid>
             {/* Image gallery */}

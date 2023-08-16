@@ -5,7 +5,6 @@ const AuthRoutes = () => {
     <Routes>
         <Route path="login" element={ <LoginPages/> } />
         <Route path="register" element={ <RegisterPages/> } />
-
         <Route path="/*" element={ <Navigate to="/auth/login" /> } />
     </Routes>
   );
