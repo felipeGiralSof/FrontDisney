@@ -1,6 +1,6 @@
 import { TurnedInNot } from "@mui/icons-material";
 import { Box, Divider, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
-
+import { Link, NavLink  } from "react-router-dom";
 
 const Sidebar = ({ drawerWidth = 240 }) => {
   return (
@@ -23,21 +23,30 @@ const Sidebar = ({ drawerWidth = 240 }) => {
             </Toolbar>
             <Divider/>
             <List>
-                {
-                    ['Personajes', 'Peliculas-Series'].map(text => (
-                        <ListItem key={text} disablePadding>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <TurnedInNot/>
-                                </ListItemIcon>
-                                <Grid container>
-                                    <ListItemText primary={text}/>
-                                </Grid>
-                            </ListItemButton>
-
-                        </ListItem>
-                    ))
-                }
+                <ListItem key="Personajes" disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <TurnedInNot/>
+                        </ListItemIcon>
+                        <Grid container>
+                            <Link to="/disney/listar-personajes">
+                                <ListItemText primary="Personajes"/>
+                            </Link>
+                        </Grid>
+                    </ListItemButton>
+                </ListItem>
+                <ListItem key="Peliculas-Series" disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon>
+                            <TurnedInNot/>
+                        </ListItemIcon>
+                        <Grid container>
+                            <Link to="/disney/listar-peliculas">
+                                <ListItemText primary="Peliculas-Series"/>
+                            </Link>
+                        </Grid>
+                    </ListItemButton>
+                </ListItem>
             </List>
 
         </Drawer>

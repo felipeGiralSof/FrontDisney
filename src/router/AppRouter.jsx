@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import AuthRoutes from '../auth/routes/AuthRoutes'
 import { DisneyRoutes } from '../disney/routes/DisneyRoutes'
 
@@ -8,7 +8,9 @@ const AppRouter = () => {
 
         <Route path='/auth/*' element={ <AuthRoutes/> } />
 
-        <Route path='/*' element={ <DisneyRoutes/> } />
+        <Route path='/disney/*' element={ <DisneyRoutes/> } />
+
+        <Route path='/*' element={ <Navigate to="/disney" /> } />
 
         <Route/>
     </Routes>
