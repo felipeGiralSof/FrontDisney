@@ -18,7 +18,7 @@ export const create = async (data) => {
 
 export const table = async () => {
     try {
-        const response = await axiosUtils.get("/characters");
+        const response = await axiosUtils.get("/characters/details");
         return {
             status: true,
             message: response
