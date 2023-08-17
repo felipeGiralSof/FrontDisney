@@ -20,6 +20,7 @@ import ButtonAdd from "../components/ButtonAdd";
 import DisneyLayout from "../layout/DisneyLayout";
 
 import {table} from "../service/personajeService.js";
+import { Button } from '@mui/material';
 
 const Row = (props) => {
     const {row} = props;
@@ -39,6 +40,12 @@ const Row = (props) => {
                 </TableCell>
                 <TableCell component="th" scope="row" align="center">{row.imagen}</TableCell>
                 <TableCell align="center">{row.nombre}</TableCell>
+                <TableCell align="center">
+                    <div align="right">
+                        <Button sx={{mr: 1}} variant="contained">Editar</Button>
+                        <Button variant="contained">Eliminar</Button>
+                    </div>
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
@@ -109,6 +116,10 @@ const ListarPersonajesPage = () => {
                                 sx={{fontSize: '20px', color: 'white', fontWeight: 'bold'}}
                                 align="center"
                             >Nombre</TableCell>
+                            <TableCell
+                                sx={{fontSize: '20px', color: 'white', fontWeight: 'bold'}}
+                                align="center"
+                            >Acciones</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
