@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -12,6 +11,7 @@ import DisneyLayout from "../layout/DisneyLayout";
 
 import { Link } from "react-router-dom";
 import { Typography } from '@mui/material';
+import {useState} from "react";
 
 const createData = (imagen, nombre, fecha_creacion ) => {
     return { 
@@ -28,29 +28,34 @@ const rows = [
 ];
 
 const ListarPersonajesPage = () => {
-  return (
-    <DisneyLayout>
-        <Typography variant='h3' align='center' p={1}>Listado de Personajes</Typography>
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                <TableHead sx={{backgroundColor: 'blue'}}>
-                    <TableRow>
-                        <TableCell sx={{fontSize:'20px', color:'white', fontWeight:'bold'}} align="center">Imagen</TableCell>
-                        <TableCell sx={{fontSize:'20px', color:'white', fontWeight:'bold'}} align="center">Titulo</TableCell>
-                        <TableCell sx={{fontSize:'20px', color:'white', fontWeight:'bold'}} align="center">Fecha Creacion</TableCell>
-                        <TableCell sx={{fontSize:'20px', color:'white', fontWeight:'bold'}} align="center">Detalle</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map((row) => (
-                        <TableRow
-                        key={row.name}
-                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                        >
-                        <TableCell component="th" scope="row" align="center">{row.imagen}</TableCell>
-                        <TableCell align="center">{row.titulo}</TableCell>
-                        <TableCell align="center">{row.fecha_creacion}</TableCell>
-                        <TableCell align="center">{row.titulo}</TableCell>
+    const [personajes, setPersonajes] = useState([]);
+    return (
+        <DisneyLayout>
+            <Typography variant='h3' align='center' p={1}>Listado de Personajes</Typography>
+            <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                    <TableHead sx={{backgroundColor: 'blue'}}>
+                        <TableRow>
+                            <TableCell sx={{fontSize:'20px', color:'white', fontWeight:'bold'}} align="center">Imagen</TableCell>
+                            <TableCell sx={{fontSize:'20px', color:'white', fontWeight:'bold'}} align="center">Titulo</TableCell>
+                            <TableCell sx={{fontSize:'20px', color:'white', fontWeight:'bold'}} align="center">Fecha Creacion</TableCell>
+                            <TableCell sx={{fontSize:'20px', color:'white', fontWeight:'bold'}} align="center">Detalle</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rows.map((row) => (
+                            <TableRow
+                                key={row.name}
+                                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                            >
+                                <TableCell
+                                    component="th"
+                                    scope="row"
+                                    align="center"
+                                >{row.imagen}</TableCell>
+                                <TableCell align="center">{row.titulo}</TableCell>
+                                <TableCell align="center">{row.fecha_creacion}</TableCell>
+                                <TableCell align="center">{row.titulo}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

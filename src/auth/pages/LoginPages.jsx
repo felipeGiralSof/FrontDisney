@@ -2,12 +2,31 @@ import { Google } from "@mui/icons-material";
 import { Button, Grid, TextField, Typography, Link } from "@mui/material";
 import { Link as RouterLink} from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout";
+import {useState} from "react";
 
+import {login} from '../service/LoginService.js';
 
 export const LoginPages = () => {
+
+  const [user, setUser] = useState("");
+  const [pass, setPass] = useState("");
+
+  const handleChangeMail = (event) => {
+    setUser(event.target.value);
+  };
+
+  const handleChangePass = (event) => {
+    setPass(event.target.value);
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await login({ user, pass });
+  }
+
   return (
     <AuthLayout title="Login">
-      <form>
+      <form onSubmit={ handleSubmit }>
           <Grid container>
             <Grid item xs={ 12 } md={ 6 } sx={{ mt: 2}}>
               <TextField 
@@ -15,6 +34,8 @@ export const LoginPages = () => {
                 type="email" 
                 placeholder="ejemplo@gmail.com" 
                 fullWidth
+                value={user}
+                onChange={ handleChangeMail }
               />
             </Grid>
 
@@ -24,6 +45,8 @@ export const LoginPages = () => {
                 type="password" 
                 placeholder="Contraseña" 
                 fullWidth
+                value={pass}
+                onChange={ handleChangePass }
               />
             </Grid>
 
@@ -32,17 +55,9 @@ export const LoginPages = () => {
                 <Button 
                   variant="contained"
                   fullWidth
+                  type="submit"
                 >
                   LOGIN
-                </Button>
-              </Grid>
-              <Grid item xs={ 12 } sm={ 6 } sx={{ mt: 2}} >
-                <Button 
-                  variant="contained"
-                  fullWidth
-                >
-                  <Google/>
-                  <Typography sx={{ml: 1}}>Google</Typography>
                 </Button>
               </Grid>
             </Grid>
