@@ -29,9 +29,8 @@ function createData(imagen, titulo, fecha_creacion) {
         personajes_asociados: '11091700',
       },
       {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1,
+        calificacion: '10',
+        personajes_asociados: '11',
       },
     ],
   };
