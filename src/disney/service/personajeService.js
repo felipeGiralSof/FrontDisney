@@ -32,6 +32,22 @@ export const update = async (id, data) => {
     }
 }
 
+export const eliminar = async (id) => {
+    try {
+        const response = await axiosUtils.delete(`/characters/${id}`);
+        return {
+            status: true,
+            message: response
+        };
+    } catch (err) {
+        console.log(err);
+        return {
+            status: false,
+            message: err
+        };
+    }
+}
+
 export const table = async () => {
     try {
         const response = await axiosUtils.get("/characters/details");

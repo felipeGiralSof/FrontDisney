@@ -19,12 +19,19 @@ import {useEffect, useState} from "react";
 import ButtonAdd from "../components/ButtonAdd";
 import DisneyLayout from "../layout/DisneyLayout";
 
-import {table} from "../service/personajeService.js";
-import { Button } from '@mui/material';
+import {table, eliminar} from "../service/personajeService.js";
+import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+
 
 const Row = (props) => {
     const {row} = props;
     const [open, setOpen] = React.useState(false);
+
+    const deletePersonaje = async (id) => {
+        await eliminar(id);
+        console.log('personaje eliminado');
+    }
 
     return (
         <React.Fragment>
@@ -38,14 +45,23 @@ const Row = (props) => {
                         {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
                     </IconButton>
                 </TableCell>
-                <TableCell component="th" scope="row" align="center">{row.imagen}</TableCell>
+                <TableCell component="th" scope="row" align="center">
+                    <div>
+                        <img
+                            src={`${row.imagen}?w=164&h=164&fit=crop&auto=format`}
+                            srcSet={`${row.imagen}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                            alt={row.nombre}
+                            loading="lazy"
+                        />
+                    </div>
+                </TableCell>
                 <TableCell align="center">{row.nombre}</TableCell>
                 <TableCell align="center">
                     <div align="right">
                         <Link to="/disney/agregar-personaje" state={row}>
                             <Button sx={{mr: 1}} variant="contained">Editar</Button>
                         </Link>
-                        <Button variant="contained">Eliminar</Button>
+                        <Button variant="contained" onClick={() => deletePersonaje(row.id)}>Eliminar</Button>
                     </div>
                 </TableCell>
             </TableRow>
@@ -57,7 +73,7 @@ const Row = (props) => {
                                 detalle peliculas asociadas
                             </Typography>
                             <Table size="small" aria-label="purchases">
-                                <TableHead>
+                                <TableHead sx={{backgroundColor: 'yellowgreen'}}>
                                     <TableRow>
                                         <TableCell align="left">imagen</TableCell>
                                         <TableCell align="right">titulo</TableCell>
@@ -72,7 +88,16 @@ const Row = (props) => {
                                                 align='left'
                                                 component="th"
                                                 scope="row"
-                                            >{peliculaSeries.imagen}</TableCell>
+                                            >
+                                                <div>
+                                                    <img
+                                                        src={`${peliculaSeries.imagen}?w=164&h=164&fit=crop&auto=format`}
+                                                        srcSet={`${peliculaSeries.imagen}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                        alt={peliculaSeries.titulo}
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                            </TableCell>
                                             <TableCell align='right'>{peliculaSeries.titulo}</TableCell>
                                             <TableCell align='right'>{peliculaSeries.fechaCreacion}</TableCell>
                                             <TableCell align='right'>{peliculaSeries.calificacion}</TableCell>
@@ -98,6 +123,47 @@ const ListarPersonajesPage = () => {
 
     return (
         <DisneyLayout>
+            <Grid container sx={{display: 'flex'}}>
+                <form>
+                    <TextField 
+                        label="Nombre" 
+                        variant="filled"
+                        sx={{border: '1px', mr: 1}}
+                    />
+
+                    <TextField 
+                        label="Edad" 
+                        variant="filled"
+                        sx={{border: '1px', mr: 1}}
+                    />
+
+                    <TextField  
+                        label="Peso" 
+                        variant="filled" 
+                        sx={{border: '1px', mr: 1}}
+                    />
+
+                    <FormControl sx={{ m: 1, minWidth: 220 }} size="medium">
+                        <InputLabel id="demo-simple-select-label">Peliculas</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            //value={age}
+                            label="Age"
+                            //onChange={handleChange}
+                            variant="filled"    
+                        >
+                            <MenuItem value={10}>Ten</MenuItem>
+                            <MenuItem value={20}>Twenty</MenuItem>
+                            <MenuItem value={30}>Thirty</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <Button color="primary" sx={{padding: 2}} type="button">
+                            <SearchIcon sx={{fontSize: 30, mr: 1}}/>
+                            Buscar
+                    </Button>
+                </form>
+            </Grid>
             <Typography variant='h3' align='center' p={1}>Listado de Personajes</Typography>
             <TableContainer component={Paper}>
                 <Table sx={{minWidth: 650}} aria-label="simple table">

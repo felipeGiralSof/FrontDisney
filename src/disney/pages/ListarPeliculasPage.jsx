@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -19,12 +18,18 @@ import {Link} from "react-router-dom";
 import DisneyLayout from "../layout/DisneyLayout";
 import ButtonAdd from '../components/ButtonAdd';
 
-import {table} from '../service/pelicuulasService';
+import {table, eliminar} from '../service/pelicuulasService';
 import {useEffect, useState} from "react";
+import { Button } from '@mui/material';
 
 const Row = (props) => {
     const {row} = props;
     const [open, setOpen] = React.useState(false);
+
+    const deletePelicula = async (id) => {
+      await eliminar(id);
+      console.log('eliminado exitoso');
+    }
 
     return (
         <React.Fragment>
@@ -38,9 +43,26 @@ const Row = (props) => {
                         {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
                     </IconButton>
                 </TableCell>
-                <TableCell component="th" scope="row" align="center">{row.imagen}</TableCell>
+                <TableCell component="th" scope="row" align="center">
+                  <div>
+                    <img
+                        src={`${row.imagen}?w=164&h=164&fit=crop&auto=format`}
+                        srcSet={`${row.imagen}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                        alt={row.titulo}
+                        loading="lazy"
+                      />
+                  </div>
+                </TableCell>
                 <TableCell align="center">{row.titulo}</TableCell>
                 <TableCell align="center">{row.fechaCreacion}</TableCell>
+                <TableCell align="center">
+                  <div align="right">
+                        <Link to="/disney/agregar-pelicula" state={row}>
+                            <Button sx={{mr: 1}} variant="contained">Editar</Button>
+                        </Link>
+                        <Button variant="contained" onClick={() => deletePelicula(row.id)}>Eliminar</Button>
+                    </div>
+                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
@@ -50,7 +72,7 @@ const Row = (props) => {
                                 Personajes
                             </Typography>
                             <Table size="small" aria-label="purchases">
-                                <TableHead>
+                                <TableHead sx={{backgroundColor: 'yellowgreen'}}>
                                     <TableRow>
                                         <TableCell align="left">imagen</TableCell>
                                         <TableCell align="right">nombre</TableCell>
@@ -62,7 +84,14 @@ const Row = (props) => {
                                     {row.Personajes.map((personaje) => (
                                         <TableRow key={personaje.id}>
                                             <TableCell align='left' component="th" scope="row">
-                                                {personaje.imagen}
+                                              <div>
+                                                <img
+                                                    src={`${personaje.imagen}?w=164&h=164&fit=crop&auto=format`}
+                                                    srcSet={`${personaje.imagen}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                    alt={personaje.nombre}
+                                                    loading="lazy"
+                                                />
+                                              </div>
                                             </TableCell>
                                             <TableCell align='right'>{personaje.nombre}</TableCell>
                                             <TableCell align='right'>{personaje.edad}</TableCell>

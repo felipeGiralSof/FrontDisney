@@ -2,7 +2,7 @@ import axiosUtils from "../../utils/axiosUtils.js";
 
 export const create = async (data) => {
     try {
-        const response = await axiosUtils.post("/characters", data);
+        const response = await axiosUtils.post("/movies", data);
         return {
             status: true,
             message: response
@@ -18,7 +18,23 @@ export const create = async (data) => {
 
 export const update = async (id, data) => {
     try {
-        const response = await axiosUtils.put(`/characters/${id}`, data);
+        const response = await axiosUtils.put(`/movies/${id}`, data);
+        return {
+            status: true,
+            message: response
+        };
+    } catch (err) {
+        console.log(err);
+        return {
+            status: false,
+            message: err
+        };
+    }
+}
+
+export const eliminar = async (id) => {
+    try {
+        const response = await axiosUtils.delete(`/movies/${id}`);
         return {
             status: true,
             message: response
