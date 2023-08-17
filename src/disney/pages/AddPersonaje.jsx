@@ -3,20 +3,51 @@ import {Button, Grid, TextField, Typography} from '@mui/material'
 import {useForm} from 'react-hook-form';
 
 import DisneyLayout from "../layout/DisneyLayout";
-import {create} from '../service/personajeService.js';
-import {useState} from "react";
+import {create, update} from '../service/personajeService.js';
+import {useEffect, useState} from "react";
+import {useLocation} from "react-router-dom";
 
 const AddPersonaje = () => {
-    const {register, reset, handleSubmit, watch, formState: {errors}} = useForm();
+    const {register, setValue, reset, handleSubmit, watch, formState: {errors}} = useForm();
+
+    const location = useLocation();
+    const [id, setId] = useState(0);
+    const [type, setType] = useState("Creación");
     const [message, setMessage] = useState("");
 
+    useEffect(() => {
+        if(location.state) {
+            setType("Actualización");
+            setDataForm(location.state);
+        }
+    }, []);
+
+    const setDataForm = (data) => {
+        setId(data.id);
+        setValue('imagen', data.imagen);
+        setValue('nombre', data.nombre);
+        setValue('edad', data.edad);
+        setValue('peso', data.peso);
+        setValue('historia', data.historia);
+    }
+
     const onSubmit = async (data) => {
-        console.log(data);
-        const response = await create(data);
-        if (response.status) {
-            setMessage("Creado correctamente");
+        let response = null;
+        switch (type) {
+            case "Creación":
+                response = await create(data);
+                break;
+            case "Actualización":
+                response = await update(id, data);
+                break;
+            default:
+                break;
+        }
+
+        if (response && response.status) {
+            setMessage(`${type} exitoso`);
             reset();
-        } else setMessage("Error al crear")
+        } else setMessage(`${type} fallido`);
     }
 
     return (

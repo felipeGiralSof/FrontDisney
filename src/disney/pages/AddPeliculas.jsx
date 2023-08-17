@@ -1,15 +1,9 @@
 import {Button, Grid, TextField, Typography} from "@mui/material";
 import DisneyLayout from "../layout/DisneyLayout";
 import {SaveOutlined} from "@mui/icons-material";
-import {useLocation} from "react-router-dom";
-import {useEffect} from "react";
 
 const AddPeliculas = () => {
-    let location = useLocation();
 
-    useEffect(() => {
-        console.log(location.state);
-    }, []);
     return (
         <DisneyLayout>
             <Grid container direction='row' justifyContent='space-between' alignItems='center' sx={{mb: 1}}>

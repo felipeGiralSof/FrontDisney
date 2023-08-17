@@ -42,7 +42,9 @@ const Row = (props) => {
                 <TableCell align="center">{row.nombre}</TableCell>
                 <TableCell align="center">
                     <div align="right">
-                        <Button sx={{mr: 1}} variant="contained">Editar</Button>
+                        <Link to="/disney/agregar-personaje" state={row}>
+                            <Button sx={{mr: 1}} variant="contained">Editar</Button>
+                        </Link>
                         <Button variant="contained">Eliminar</Button>
                     </div>
                 </TableCell>
@@ -91,10 +93,7 @@ const ListarPersonajesPage = () => {
 
     useEffect(() => {
         table()
-            .then(el => {
-                console.log("Start", el.message.data);
-                setPersonajes(el.message.data);
-            });
+            .then(el => { setPersonajes(el.message.data) });
     }, []);
 
     return (
@@ -129,7 +128,7 @@ const ListarPersonajesPage = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Link to="/disney/agregar-personaje" state={"dsdsdsdd"}>
+            <Link to="/disney/agregar-personaje">
                 <ButtonAdd/>
             </Link>
 

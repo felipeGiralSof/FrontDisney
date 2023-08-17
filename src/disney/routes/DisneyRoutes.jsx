@@ -7,8 +7,8 @@ import AddPersonaje from '../pages/AddPersonaje';
 export const DisneyRoutes = () => {
   return (
     <Routes>
-        <Route path='/agregar-pelicula' element={ <AddPersonaje/> } />
-        <Route path='/agregar-personaje' element={ <AddPeliculas/> } />
+        <Route path='/agregar-pelicula' element={ <AddPeliculas/> } />
+        <Route path='/agregar-personaje' element={ <AddPersonaje/> } />
         <Route path='/listar-peliculas' element={ <ListarPeliculasPage/> } />
         <Route path='/listar-personajes' element={ <ListarPersonajesPage/> } />
         <Route path='/*' element={ <Navigate to="/disney/listar-peliculas" /> } />
