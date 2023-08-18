@@ -1,32 +1,34 @@
-import { Google } from "@mui/icons-material";
-import { Button, Grid, TextField, Typography, Link } from "@mui/material";
-import { Link as RouterLink} from "react-router-dom";
+import { Button, Grid, TextField, Link } from "@mui/material";
+import {Link as RouterLink, useNavigate} from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout";
-import {useState} from "react";
 
-import {login} from '../service/LoginService.js';
+import {login} from '../service/LoginService';
+import {useForm} from "react-hook-form";
+import {useEffect} from "react";
 
 export const LoginPages = () => {
+  const {register, setValue, reset, handleSubmit} = useForm();
 
-  const [user, setUser] = useState("");
-  const [pass, setPass] = useState("");
+  const navigate = useNavigate();
 
-  const handleChangeMail = (event) => {
-    setUser(event.target.value);
-  };
+  useEffect(() => {
+    setValue('user', "asdsad@asdsa");
+    setValue('pass', "sadsadsadsad");
+  }, []);
 
-  const handleChangePass = (event) => {
-    setPass(event.target.value);
-  }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    await login({ user, pass });
+  const onSubmit = async (data) => {
+    const response = await login(data);
+    if(response.status) {
+      const token = response.message.data.substring(7);
+      localStorage.setItem('token', token);
+      navigate("/disney/listar-personajes");
+    }
+    reset();
   }
 
   return (
     <AuthLayout title="Login">
-      <form onSubmit={ handleSubmit }>
+      <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container>
             <Grid item xs={ 12 } md={ 6 } sx={{ mt: 2}}>
               <TextField 
@@ -34,8 +36,7 @@ export const LoginPages = () => {
                 type="email" 
                 placeholder="ejemplo@gmail.com" 
                 fullWidth
-                value={user}
-                onChange={ handleChangeMail }
+                {...register("user", {required: true})}
               />
             </Grid>
 
@@ -45,8 +46,7 @@ export const LoginPages = () => {
                 type="password" 
                 placeholder="Contraseña" 
                 fullWidth
-                value={pass}
-                onChange={ handleChangePass }
+                {...register("pass", {required: true})}
               />
             </Grid>
 

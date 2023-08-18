@@ -11,7 +11,7 @@ export const DisneyRoutes = () => {
         <Route path='/agregar-personaje' element={ <AddPersonaje/> } />
         <Route path='/listar-peliculas' element={ <ListarPeliculasPage/> } />
         <Route path='/listar-personajes' element={ <ListarPersonajesPage/> } />
-        <Route path='/*' element={ <Navigate to="/disney/listar-peliculas" /> } />
+        <Route path='/*' element={ <Navigate to="/disney/listar-personajes" /> } />
     </Routes>
   );
 };

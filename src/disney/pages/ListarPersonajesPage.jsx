@@ -25,11 +25,14 @@ import SearchIcon from '@mui/icons-material/Search';
 
 
 const Row = (props) => {
-    const {row} = props;
+    const {row, parentReloadData} = props;
     const [open, setOpen] = React.useState(false);
 
     const deletePersonaje = async (id) => {
-        await eliminar(id);
+        const response = await eliminar(id);
+        if(response.status) {
+            parentReloadData();
+        }
         console.log('personaje eliminado');
     }
 
@@ -116,9 +119,14 @@ const Row = (props) => {
 const ListarPersonajesPage = () => {
     const [personajes, setPersonajes] = useState([]);
 
+    const startData = async () => {
+        const response = await table();
+        if(response.message && response.message.data) setPersonajes(response.message.data);
+        else setPersonajes(response.message);
+    }
+
     useEffect(() => {
-        table()
-            .then(el => { setPersonajes(el.message.data) });
+        startData();
     }, []);
 
     return (
@@ -189,7 +197,7 @@ const ListarPersonajesPage = () => {
                     </TableHead>
                     <TableBody>
                         {personajes.map((row) => (
-                            <Row key={row.id} row={row}/>
+                            <Row key={row.id} row={row} parentReloadData={startData} />
                         ))}
                     </TableBody>
                 </Table>

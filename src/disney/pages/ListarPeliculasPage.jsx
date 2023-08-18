@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -18,16 +19,18 @@ import {Link} from "react-router-dom";
 import DisneyLayout from "../layout/DisneyLayout";
 import ButtonAdd from '../components/ButtonAdd';
 
-import {table, eliminar} from '../service/pelicuulasService';
+import {table, eliminar} from '../service/peliculasService.js';
 import {useEffect, useState} from "react";
-import { Button } from '@mui/material';
 
 const Row = (props) => {
-    const {row} = props;
+    const {row, parentReloadData } = props;
     const [open, setOpen] = React.useState(false);
 
     const deletePelicula = async (id) => {
-      await eliminar(id);
+      const response = await eliminar(id);
+      if(response.status) {
+        parentReloadData();
+      }
       console.log('eliminado exitoso');
     }
 
@@ -55,14 +58,6 @@ const Row = (props) => {
                 </TableCell>
                 <TableCell align="center">{row.titulo}</TableCell>
                 <TableCell align="center">{row.fechaCreacion}</TableCell>
-                <TableCell align="center">
-                  <div align="right">
-                        <Link to="/disney/agregar-pelicula" state={row}>
-                            <Button sx={{mr: 1}} variant="contained">Editar</Button>
-                        </Link>
-                        <Button variant="contained" onClick={() => deletePelicula(row.id)}>Eliminar</Button>
-                    </div>
-                </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
@@ -72,7 +67,7 @@ const Row = (props) => {
                                 Personajes
                             </Typography>
                             <Table size="small" aria-label="purchases">
-                                <TableHead sx={{backgroundColor: 'yellowgreen'}}>
+                                <TableHead>
                                     <TableRow>
                                         <TableCell align="left">imagen</TableCell>
                                         <TableCell align="right">nombre</TableCell>
@@ -111,9 +106,14 @@ const Row = (props) => {
 const ListarPeliculasPage = () => {
     const [peliculas, setPeliculas] = useState([]);
 
+    const startData = async () => {
+        const response = await table();
+        if(response.message && response.message.data) setPeliculas(response.message.data);
+        else setPeliculas(response.message);
+    }
+
     useEffect(() => {
-        table()
-            .then(el => { setPeliculas(el.message.data) });
+        startData();
     }, []);
 
     return (
@@ -136,7 +136,7 @@ const ListarPeliculasPage = () => {
                     </TableHead>
                     <TableBody>
                         {peliculas.map((row) => (
-                            <Row key={row.name} row={row}/>
+                            <Row key={row.name} row={row} parentReloadData={startData} />
                         ))}
                     </TableBody>
                 </Table>

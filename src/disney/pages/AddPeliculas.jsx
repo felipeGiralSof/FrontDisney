@@ -6,7 +6,7 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 import DisneyLayout from "../layout/DisneyLayout";
-import {create, update} from '../service/pelicuulasService';
+import {create, update} from '../service/peliculasService';
 
 const AddPeliculas = () => {
     const {register, setValue, reset, handleSubmit, watch, formState: {errors}} = useForm();

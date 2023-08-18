@@ -43,7 +43,7 @@ export const eliminar = async (id) => {
         console.log(err);
         return {
             status: false,
-            message: err
+            message: []
         };
     }
 }
