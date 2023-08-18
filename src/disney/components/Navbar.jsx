@@ -6,6 +6,7 @@ const Navbar = ({drawerWith = 240}) => {
     const navigate = useNavigate();
 
     const handleClickExit = () => {
+        console.log("handleClickExit")
         localStorage.clear();
         navigate("/");
     };

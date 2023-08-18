@@ -1,5 +1,4 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -19,10 +18,11 @@ import {Link} from "react-router-dom";
 import DisneyLayout from "../layout/DisneyLayout";
 import ButtonAdd from '../components/ButtonAdd';
 
-import {table, eliminar} from '../service/peliculasService.js';
+import usePeliculasService from '../service/peliculasService';
 import {useEffect, useState} from "react";
 
 const Row = (props) => {
+    const {eliminar} = usePeliculasService();
     const {row, parentReloadData } = props;
     const [open, setOpen] = React.useState(false);
 
@@ -104,6 +104,7 @@ const Row = (props) => {
 }
 
 const ListarPeliculasPage = () => {
+    const {table} = usePeliculasService();
     const [peliculas, setPeliculas] = useState([]);
 
     const startData = async () => {

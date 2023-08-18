@@ -6,9 +6,10 @@ import {useLocation} from "react-router-dom";
 import {useEffect, useState} from "react";
 
 import DisneyLayout from "../layout/DisneyLayout";
-import {create, update} from '../service/peliculasService';
+import usePeliculasService from '../service/peliculasService.jsx';
 
 const AddPeliculas = () => {
+    const {create, update} = usePeliculasService();
     const {register, setValue, reset, handleSubmit, watch, formState: {errors}} = useForm();
 
     const location = useLocation();

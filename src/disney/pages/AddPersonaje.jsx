@@ -2,12 +2,13 @@ import {SaveOutlined} from '@mui/icons-material'
 import {Button, Grid, TextField, Typography} from '@mui/material'
 import {useForm} from 'react-hook-form';
 import DisneyLayout from "../layout/DisneyLayout";
-import {create, update} from '../service/personajeService.js';
+import usePersonajeService from '../service/personajeService.jsx';
 import {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 
 
 const AddPersonaje = () => {
+    const {create, update} = usePersonajeService();
     const {register, setValue, reset, handleSubmit, watch, formState: {errors}} = useForm();
 
     const location = useLocation();

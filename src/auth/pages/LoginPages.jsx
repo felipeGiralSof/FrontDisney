@@ -2,12 +2,15 @@ import { Button, Grid, TextField, Link } from "@mui/material";
 import {Link as RouterLink, useNavigate} from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout";
 
-import {login} from '../service/LoginService';
+import useLoginService from '../service/LoginService.jsx';
 import {useForm} from "react-hook-form";
-import {useEffect} from "react";
+import {useContext, useEffect} from "react";
+import {AppContext, TOKEN} from "../../utils/reducerUtils.jsx";
 
 export const LoginPages = () => {
+  const {login} = useLoginService();
   const {register, setValue, reset, handleSubmit} = useForm();
+  const [state, dispatch] = useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -19,8 +22,10 @@ export const LoginPages = () => {
   const onSubmit = async (data) => {
     const response = await login(data);
     if(response.status) {
-      const token = response.message.data.substring(7);
-      localStorage.setItem('token', token);
+      dispatch({
+        type: TOKEN,
+        token: response.message.data.substring(7)
+      });
       navigate("/disney/listar-personajes");
     }
     reset();

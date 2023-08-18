@@ -3,9 +3,10 @@ import { Link as RouterLink} from "react-router-dom";
 import AuthLayout from "../layout/AuthLayout";
 import {useState} from "react";
 
-import { register } from '../service/RegisterService.js';
+import useRegisterService from '../service/RegisterService';
 
 export const RegisterPages = () => {
+  const {register} = useRegisterService();
 
   const [user, setUser] = useState("");
   const [pass, setPass] = useState("");
