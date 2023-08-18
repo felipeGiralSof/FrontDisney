@@ -83,7 +83,23 @@ const usePeliculasService = () => {
         }
     }
 
-    return {create, readAll, update, eliminar, table};
+    const asociatePersonaje = async (id, data) => {
+        try {
+            const response = await axios.put(`/movies/${id}/personajes`, data);
+            return {
+                status: true,
+                message: response
+            };
+        } catch (err) {
+            console.log(err);
+            return {
+                status: false,
+                message: err
+            };
+        }
+    }
+
+    return {create, readAll, update, eliminar, table, asociatePersonaje};
 }
 
 export default usePeliculasService;

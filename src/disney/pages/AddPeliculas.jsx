@@ -10,7 +10,7 @@ import usePeliculasService from '../service/peliculasService.jsx';
 
 const AddPeliculas = () => {
     const {create, update} = usePeliculasService();
-    const {register, setValue, reset, handleSubmit, watch, formState: {errors}} = useForm();
+    const {register, setValue, reset, handleSubmit} = useForm();
 
     const location = useLocation();
     const [id, setId] = useState(0);
@@ -82,7 +82,7 @@ const AddPeliculas = () => {
                         />
 
                         <TextField
-                            type="text"
+                            type="date"
                             variant="filled"
                             fullWidth
                             placeholder="Ingresa la Fecha de Creacion"
@@ -100,16 +100,6 @@ const AddPeliculas = () => {
                             sx={{border: '1px', mb: 1}}
                             {...register("calificacion", {required: true})}
                         />
-
-                        {/* <TextField
-                            type="number"
-                            variant="filled"
-                            fullWidth
-                            placeholder="Ingresa los Personajes Asociados"
-                            label="Personajes Asociados"
-                            sx={{border: '1px', mb: 1}}
-                            {...register("personajesAsociados")}
-                        /> */}
                         <Typography sx={{mr: 1}}>{message}</Typography>
 
                         <Button color="primary" sx={{padding: 2}} type="submit">

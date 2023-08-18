@@ -15,8 +15,8 @@ export const LoginPages = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setValue('user', "asdsad@asdsa");
-    setValue('pass', "sadsadsadsad");
+    setValue('user', "wini@gmail.com");
+    setValue('pass', "123456");
   }, []);
 
   const onSubmit = async (data) => {

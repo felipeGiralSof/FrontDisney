@@ -24,7 +24,6 @@ import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField } fr
 import SearchIcon from '@mui/icons-material/Search';
 import usePeliculasService from "../service/peliculasService.jsx";
 
-
 const Row = (props) => {
     const {row, parentReloadData} = props;
     const [open, setOpen] = React.useState(false);
@@ -70,50 +69,52 @@ const Row = (props) => {
                     </div>
                 </TableCell>
             </TableRow>
-            <TableRow>
-                <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
-                    <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box sx={{margin: 1}}>
-                            <Typography variant="h6" gutterBottom component="div">
-                                detalle peliculas asociadas
-                            </Typography>
-                            <Table size="small" aria-label="purchases">
-                                <TableHead sx={{backgroundColor: 'yellowgreen'}}>
-                                    <TableRow>
-                                        <TableCell align="left">imagen</TableCell>
-                                        <TableCell align="right">titulo</TableCell>
-                                        <TableCell align="right">fechaCreacion</TableCell>
-                                        <TableCell align="right">calificacion</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {row.PeliculaSeries.map((peliculaSeries) => (
-                                        <TableRow key={peliculaSeries.id}>
-                                            <TableCell
-                                                align='left'
-                                                component="th"
-                                                scope="row"
-                                            >
-                                                <div>
-                                                    <img
-                                                        src={`${peliculaSeries.imagen}?w=164&h=164&fit=crop&auto=format`}
-                                                        srcSet={`${peliculaSeries.imagen}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                                        alt={peliculaSeries.titulo}
-                                                        loading="lazy"
-                                                    />
-                                                </div>
-                                            </TableCell>
-                                            <TableCell align='right'>{peliculaSeries.titulo}</TableCell>
-                                            <TableCell align='right'>{peliculaSeries.fechaCreacion}</TableCell>
-                                            <TableCell align='right'>{peliculaSeries.calificacion}</TableCell>
+            {row.PeliculaSeries.length > 0 &&
+                <TableRow>
+                    <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={6}>
+                        <Collapse in={open} timeout="auto" unmountOnExit>
+                            <Box sx={{margin: 1}}>
+                                <Typography variant="h6" gutterBottom component="div">
+                                    detalle peliculas asociadas
+                                </Typography>
+                                <Table size="small" aria-label="purchases">
+                                    <TableHead sx={{backgroundColor: 'yellowgreen'}}>
+                                        <TableRow>
+                                            <TableCell align="left">imagen</TableCell>
+                                            <TableCell align="right">titulo</TableCell>
+                                            <TableCell align="right">fechaCreacion</TableCell>
+                                            <TableCell align="right">calificacion</TableCell>
                                         </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </Box>
-                    </Collapse>
-                </TableCell>
-            </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {row.PeliculaSeries.map((peliculaSeries) => (
+                                            <TableRow key={peliculaSeries.id}>
+                                                <TableCell
+                                                    align='left'
+                                                    component="th"
+                                                    scope="row"
+                                                >
+                                                    <div>
+                                                        <img
+                                                            src={`${peliculaSeries.imagen}?w=164&h=164&fit=crop&auto=format`}
+                                                            srcSet={`${peliculaSeries.imagen}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                                            alt={peliculaSeries.titulo}
+                                                            loading="lazy"
+                                                        />
+                                                    </div>
+                                                </TableCell>
+                                                <TableCell align='right'>{peliculaSeries.titulo}</TableCell>
+                                                <TableCell align='right'>{peliculaSeries.fechaCreacion}</TableCell>
+                                                <TableCell align='right'>{peliculaSeries.calificacion}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                    </TableBody>
+                                </Table>
+                            </Box>
+                        </Collapse>
+                    </TableCell>
+                </TableRow>
+            }
         </React.Fragment>
     );
 }
